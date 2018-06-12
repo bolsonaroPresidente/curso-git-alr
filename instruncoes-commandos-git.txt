@@ -1,7 +1,3 @@
-D:\Cursos\Git\git-course
-git programador561@gmail.com
-senha naomeenche1234
-username: bolsonaroPresidente
 -----------------------------------------
 Commandos git
 -----------------------------------------
@@ -44,7 +40,22 @@ git branch <nome>
 --muda de branch
 git checkout <nomeBranch>
 
+-enviando alterações  de uma branch para o repositorio
+git push -u <nomeDoRepositorio> <nomeBranch>
 
+--ver branches remotas
+git branch -r
+
+--obtendo branches que estão no repositório:
+git pull
+
+git branch -t <nomeBranchLocal> <nomeDoRepositorio>/<nomeBranchRemota>
+git branch -t design origin/design
+
+
+----------------------------------------------------
+--Merge
+----------------------------------------------------
 
 
 
