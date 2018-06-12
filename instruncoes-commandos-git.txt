@@ -1,0 +1,61 @@
+D:\Cursos\Git\git-course
+git programador561@gmail.com
+senha naomeenche1234
+username: bolsonaroPresidente
+-----------------------------------------
+Commandos git
+-----------------------------------------
+
+-- log
+git log
+-- mostra as alterações do comit
+git whatchange
+git whatchange -p
+
+--CONFIGURANDO REPOSITORIO LOCAL PARA ENVIAR OS ARQUIVOS PARA O REPOSITORIO REMOTO:
+
+-- mostra os repositórios remotos que o repositorio local tem
+git remote 
+
+-- adiciona um repositório remoto
+git remote add <nomeDoRepositorio> <urlDoRepositorioRemoto>
+git remote add origin https://github.com/bolsonaroPresidente/casadocodigo.git
+
+--enviando arquivos para o repositório remoto
+git push 
+-- 1º vez que envia é necessário configurar o nome do repositório e a branch para onde deve ser enviado (branch é como se fosse uma pasta para colocar os arquivos e o repositório como se fosse uma partição)
+git push <nomeDoRepositorio> <branch>
+
+
+-- recuperando arquivos do repositorio remoto para o repositorio local/ vai gravar uma pasta com o mesmo nome do repositorio remoto no local indicado
+git clone <urlDoRepositorioRemoto>
+cd /c/novo-workspace/pasta-para-clone
+git clone https://github.com/bolsonaroPresidente/casadocodigo.git
+
+
+-- branches
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
