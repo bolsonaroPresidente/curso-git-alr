@@ -35,6 +35,47 @@ git clone https://github.com/bolsonaroPresidente/casadocodigo.git
 
 -- branches
 
+--mostra todas as branches do repositorio
+git branch
+
+--cria uma brabch
+git branch <nome>
+
+--muda de branch
+git checkout <nomeBranch>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
