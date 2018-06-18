@@ -194,13 +194,25 @@ Para fazer o Merge:
 
 - esteja dentro da branch alvo do mege 
 - informe o comando merge com o nome da branch onde estão as alterações que vc quer adicionar ma branch alvo
+git merge <nomeDaBranchOndeEstaoAsAlteracoes>
 git merge design
 
 
+Para fazer o Rebase:
+git rebase <nomeDaBranchOndeEstaoAsAlteracoes>
+git rebase design
+
+
+enquanto se está trabalhando nas branches o ideal é usar o rebase, o merge é melhor quando efeturar o fechamento de feature
 
 
 
 
+
+---------------------------------------------------------
+Remover arquivo local no git
+---------------------------------------------------------
+git rm <nomeDoArquivo>
 
 
 
