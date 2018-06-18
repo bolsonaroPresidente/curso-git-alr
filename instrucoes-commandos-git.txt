@@ -3,7 +3,7 @@ CONFIGURANDO o Git
 -----------------------------------------
 --configurando o usuário global:
 git config --global user.name "<nomeDoUsuario>"
-git config --global user.email "<email>"
+git config --global user.mail "<email>"
 
 -- definindo editor para o git
 git config --global core.editor <nomeDoEditor>
