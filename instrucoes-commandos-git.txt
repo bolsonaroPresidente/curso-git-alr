@@ -1,0 +1,320 @@
+﻿-----------------------------------------
+CONFIGURANDO o Git
+-----------------------------------------
+--configurando o usuário global:
+git config --global user.name "<nomeDoUsuario>"
+git config --global user.email "<email>"
+
+-- definindo editor para o git
+git config --global core.editor <nomeDoEditor>
+se não definir nada ele usa o vim
+
+--verificando dados:
+git config user.name
+git config --list
+
+--iniciando o repositório local
+crie uma pasta ou acesse a pasta que irá usar o git:
+--inicializa o repositorio
+git init
+--mostra o conteúdo da pasta
+ls -la 
+
+--Criando um reposítório no github
+Sincronizar o computador com o github através da chave SSH:
+-Settings
+-SSH key -> generating SSH Keys
+-Generating a new SSH key and adding it to the ssh-agent:
+
+1 Open Git Bash.
+
+2 Paste the text below, substituting in your GitHub email address.
+
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+This creates a new ssh key, using the provided email as a label.
+
+Generating public/private rsa key pair.
+When you're prompted to "Enter a file in which to save the key," press Enter. This accepts the default file location.
+
+ Enter a file in which to save the key (/c/Users/you/.ssh/id_rsa):[Press enter] -> É possível mudar o nome do arquivo id_rsa que ele vai criar;
+ 
+O arquivo criado ficará dentro do ~ , a home:
+~/.ssh/
+
+dê um ls
+
+vai aparecer um id_rsa e id_rsa_pub
+é a id_rsa_pub pub que deve ser colocada no github
+
+- cat id_rsa_pub (copie a chave para colocar no git)
+ou
+- more id_rsa_pub (copie a chave para colocar no git)
+
+-Adding a new SSH key to your GitHub account
+
+------------------------------------------------------------
+Ligando o repositorio local ao remoto
+------------------------------------------------------------
+
+git remote add origin https://github.com/PediAlice/EPGA.git
+-- mostra o nome do repositorio
+git remote 
+
+-- mostra seu endereco
+git remote -v
+
+configura o push para subir os arquivos
+- git push -u <nomeDoEnderecoRemoto> <nomeDaBranchParaOndeDeveSubirOsArquivosLocal>
+git push -u origin master
+
+
+-----------------------------------------------------------
+Clonando um repositório - muito útil para baixar um reposiyóro para a sua maquina
+--------------------------------------------------------------------------------------
+
+git clone <enderecoDoRepositorio> <nomeDaPastaOndeDeveBaixarORepo>
+git clone git@github.com:PediAlice/EPGA.git nova-pasta-clone
+
+-----------------------------------------
+Commandos git
+-----------------------------------------
+
+-- log
+git log
+-- mostra as alterações do comit
+git whatchange
+git whatchange -p
+
+--CONFIGURANDO REPOSITORIO LOCAL PARA ENVIAR OS ARQUIVOS PARA O REPOSITORIO REMOTO:
+
+-- mostra os repositórios remotos que o repositorio local tem
+git remote 
+
+-- adiciona um repositório remoto
+git remote add <nomeDoRepositorio> <urlDoRepositorioRemoto>
+git remote add origin https://github.com/bolsonaroPresidente/casadocodigo.git
+
+--enviando arquivos para o repositório remoto
+git push 
+-- 1º vez que envia é necessário configurar o nome do repositório e a branch para onde deve ser enviado (branch é como se fosse uma pasta para colocar os arquivos e o repositório como se fosse uma partição)
+git push <nomeDoRepositorio> <branch>
+
+
+-- recuperando arquivos do repositorio remoto para o repositorio local/ vai gravar uma pasta com o mesmo nome do repositorio remoto no local indicado
+git clone <urlDoRepositorioRemoto>
+cd /c/novo-workspace/pasta-para-clone
+git clone https://github.com/bolsonaroPresidente/casadocodigo.git
+
+
+-- branches
+
+--mostra todas as branches do repositorio
+git branch
+
+--cria uma brabch
+git branch <nome>
+
+--muda de branch
+git checkout <nomeBranch>
+
+-enviando alterações  de uma branch para o repositorio
+git push -u <nomeDoRepositorio> <nomeBranch>
+
+--ver branches remotas
+git branch -r
+
+--obtendo branches que estão no repositório:
+git pull
+
+git branch -t <nomeBranchLocal> <nomeDoRepositorio>/<nomeBranchRemota>
+git branch -t design origin/design
+
+
+----------------------------------------------------
+--Merge
+----------------------------------------------------
+quando o repositório local está diferente do repositório remoto, o git impede a execução do push e informa o motivo conforme este texto. Nesse caso, é necessário
+obter o que há de diferente no repositório remoto e só depois efetuar o push com as SUAS alterações locais.
+Para sincronizar o repositorio local com o remoto utilizamos o comando git pull:
+-git pull <nomeDoRepositorio> <brabch>
+-git pull origin master
+
+--Merge sem conflito
+Se no repositório remoto tiver alterações feitas por outro usuário no mesmo arquivo que vc efetuou mudanças ocorre o MERGE. Contudo se as mudanças não ocorrerem
+nas mesmas linhas o git é esperto o suficiente para mescla-las automaticamente sem que haja a necessidade de interferencia humana.
+O git abre um arquivinho com a mensagem informando 
+
+
+--Conflitos no Merge
+Contudo se ocorre conflito durante o merge, o git não apresenta o arquivinho informando que fará o merge das alterações, e dá uma mensagem de conflito
+neste caso, temos que resolver os conflitos manualmente, 
+- devemos abrir o arquivo apontado na mensagem de conflito;
+    o git o terá marcado com as tags 
+	    <<<<<<<<<< HEAD: Mostra como estava o repositório local antes de vc fazer o git pull
+        ===============: é um divisor que mostra onde termina as alterções que já estavam no repositorio local e, onde começam as alterações que vieram do repositório remoto (abaixo) -> vc deve decidir qual das duas deverá prevalecer
+        >>>>>>>>>> NÚMERO DO COMMIT: número do commit em que a alteração conflitante foi efetuada no repositorio remoto
+  
+-Para eliminar os conflitos basta apagar o as marcações e manter as alterações que vc julgar mais adequadas.
+-após basta adicionar o arquivo com o comando add, pois isso indica para o git q vc já trabalhou no arquivo e ele está pronto para ser commitado.
+-git add <arquivo>
+-git commint -a 'mensagem'
+
+após efetuar o merge com ou sem conflito, podemos comitar com o git push
+-git push 
+
+-- Merge entre Branch
+
+Existem duas formas de se fazer mege entre branchs, são elas:
+-Merge e Rebase
+
+-Merge : cria um commit extra APENAS para juntar todos os commits efetuados nas duas branches antes da execução do merge. Tem como lado positivo que se mantém
+um histórico de todos os commits tanto da branch master quanto da branch com a qual efetuará o merge. O lado negativo é que na linha de histórico
+pode ficar complexo para ler os commits pois esse tipo de merge cria uma ramificação entre todos os commits efetuados nas branches individualmente
+
+-Rebase: trabalha de forma linear movendo o commit da branch criada, para o início da fila de commits na branch master, é como se nunca tivesse ocorrido
+commit algum na branch criada, pois ele junta tudo oque estava em ambas as branches e coloca na master. 
+
+imagine que a branch1 foi criada após o commit2 da master, então vc faz um commit na branch1 esse commit será o commit3, em seguida vc faz um commit na master
+esse comit será o 4, então vc decide dar o rebase -> em vez do git criar um novo commit na master e juntar os commits 3 e 4 com as alterações, ele simplesmente
+encapsula as alterações dos commits 3 e 4, no commit3 da branch1 e coloca essas alterações na linha da master 
+então no histórico de commits da master vc terá a seguinte configuração: C1,C2,C4,C3 e na C3 estará a junção do que estava nos commits 3 e 4. Assim, tanto a
+branch1 quanto a master estarão apontando para o mesmo commit.
+
+-Pró - Tem um histórico linear,
+-Contra - perde a ordem cronológica pq não interessa se o commit da branch1 foi feito antes ou depois do commit4 ocorrido na master, pois o commit3 
+será posicionado no começo da fila. Um dos problemas disso é que se uma outra pessoa está trabalhando na mesma branch quando ela for subir as alterações
+ela terá conflito pois o histórico estará diferent. O idela para se fazer o Rebase é qdo vc for dar pull das modificações pois assim se manterá o mesmo histórico
+assim não corre o risco de alterar o histórico e prjudicar outras pessoas
+-git pull --rebase 	
+
+-- O ideal é usar o Rebase para fechar build.  --
+
+
+Para fazer o Merge:
+
+- esteja dentro da branch alvo do mege 
+- informe o comando merge com o nome da branch onde estão as alterações que vc quer adicionar ma branch alvo
+git merge design
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
